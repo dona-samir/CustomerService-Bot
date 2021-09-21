@@ -2,7 +2,7 @@
 
 This repository contains a chatbot made with RiveScript, Flask and MySQL
 
-Credits to [this]( https://github.com/hlaahmed/Skin_care-chatbot/blob/master/README.md) repository for the frontend of the chatbot 
+The frontend of the chatbot build assisted by [this]( https://github.com/hlaahmed/Skin_care-chatbot/blob/master/README.md) repository 
 
 ## Installation and usage
 

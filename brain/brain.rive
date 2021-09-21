@@ -1,0 +1,79 @@
+! version= 2.0
+
+> begin
++ request
+* <get met> == undefined => <set met=true>{topic=welcome}{ok}
+- {ok}
+< begin
+
+>  topic welcome
++ [*]order[*]
+- hi<set name= <call>getname <star></call>><get name> Do you want to give feedback about your order? {topic=order} 
++*
+-hi<set name= <call>getname <star></call>><get name> you can leave your complain here and someone will contact you {topic=problem}
+< topic 
+
+> topic order
++ yes
+- Okay let me know your order number {topic=deliveryfeedback}
++ no
+- No problem, you can leave your complain here and someone will contact you {topic=problem}
+< topic
+
+
+> topic problem
++*
+- <set complain=<star>>please leave your number and someone will contact you soon :) {topic=bye}
+< topic
+
+> topic bye
++*
+- <set number=<star>><call>problem <star> <get complain></call>thanks for using bot{topic=welcome}
+< topic
+
+> topic deliveryfeedback
++*
+-<set order_num=<star>> how was the delivery sevice 5 (it was verg good).. 1 (it was very poor){topic=qulaityfeedback}
+< topic
+
+> topic qulaityfeedback
++*
+-<set delivery=<star>> qulaity of product 5 (it was verg good).. 1 (it was very poor){topic=additinalfeedback}
+< topic
+
+> topic additinalfeedback
++*
+-<set quality=<star>>additinal feedback{topic=saveadditinalfeedback}
+< topic
+
+> topic saveadditinalfeedback
++*
+-<set additinalcomplain=<star>><call>additinalfeedback <star> <get order_num> <get delivery> <get quality></call> thank you for using bot bye!{topic=welcome}
+< topic
+
+
+> object additinalfeedback python
+  import utillis
+  print (str(args))
+  x = len(args)
+  string =""
+  for i in range (0,x-3):
+    string =string+" "+args[i]
+
+  utillis.save(str(args[x-3]),str(args[x-2]),str(args[x-1]),string);
+< object
+
+> object problem python 
+  import utillis
+  x = len(args)
+  string =""
+  for i in range (1,x):
+    string =string+" "+args[i]
+
+  utillis.problem(string,str(args[0]));
+< object
+
+> object getname python 
+  import utillis
+  return utillis.getusername()
+< object

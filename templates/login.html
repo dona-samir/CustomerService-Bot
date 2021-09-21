@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>customer-service-Bot</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <style>
+ * {
+  background-color: rgb(111, 153, 202);
+ box-sizing: border-box
+ }/* Set height of body and the document to 100% */
+ body, html {
+ height: 100%;
+ margin: 0;
+ font-family: Arial;
+ }
+ #chatbox {
+ margin-left: auto;
+ margin-right: auto;
+ width: 90%;
+ margin-top: 90px;
+ }
+ #userInput {
+ margin-left: auto;
+ margin-right: auto;
+ width: 90%;
+ margin-top: 90px;
+
+ }
+ #textInput1 {
+ width: 15%;
+ border: 3px solid rgba(231, 228, 228, 0.171);
+ font-family: monospace;
+ font-size: 17px;
+ padding: 5px ;
+ margin: 10px ;
+ }
+ #textInput2 {
+ width: 15%;
+ border: 3px solid rgba(231, 228, 228, 0.171);
+ font-family: monospace;
+ font-size: 17px;
+ padding: 5px ;
+ margin: 30px ;
+ }
+ .userText {
+ color: white;
+ font-family: monospace;
+ font-size: 17px;
+ text-align: right;
+ line-height: 30px;
+ }
+ .userText span {
+ background-color: rgb(4, 1, 59);
+ padding: 10px;
+ border-radius: 2px;
+ }
+ .botText {
+ color: white;
+ font-family: monospace;
+ font-size: 17px;
+ text-align: left;
+ line-height: 30px;
+ }
+ .botText span {
+ background-color: rgb(4, 1, 59);
+ padding: 10px;
+ border-radius: 2px;
+ }
+ #tidbit {
+ position: absolute;
+ bottom: 0;
+ right: 0;
+ width: 300px;
+ }
+ .boxed {
+ margin-left: auto;
+ margin-right: auto;
+ width: 78%;
+ margin-top: 115px;
+ border: 1px solid rgba(255, 255, 255, 0);
+ }
+ #buttom {
+margin: 30px ;
+width: 10%;
+}
+
+ </style>
+</head>
+   <p align="center"><img src=https://image.flaticon.com/icons/png/512/2706/2706962.png alt="skin-BOT" height="160" width="160"></p>
+   
+
+<body>
+ <div>
+  <h1 align="center"><b>Welcome to Customer service chatbot</b></h1>
+  <h3  align="center"> <b>thank you for using our services </b></h3>
+  <h4  align="center"> <b>please log in to use chatbot </b></h4>
+  <p id=warning></p>
+
+ <div class="boxed">
+<form align= "center"> 
+   <div id="box">
+      <p class="Text" , align= "center">
+      </p>
+      </div>
+ <div>
+Email <input id="textInput1" type="text"  name="email"  placeholder="Email"/>
+ </div>
+ <div id="password">
+    password <input id="textInput2" type="text"  name="password" placeholder="password" />
+    </div>
+    <div>
+        <button id=buttom onclick="myFunction()">Log in</button>
+        
+    </div>
+</form >
+</div>
+  </script>
+
+  <script>
+  function calllogin(email,password){
+  $.get("/login", { Email:email,password:password }).done(function (data) {
+     var logeedin = data;
+     if (logeedin==1){
+        location.href= "{{ url_for('home')}}"
+     } else{
+      var botHtml = '<p class="Text"><span>' + "wrong password!!" + "</span></p>";
+      document.getElementById("box").innerHTML = botHtml;
+      
+     }
+ });
+}
+  function myFunction() {
+   calllogin($("#textInput1").val(),$("#textInput2").val()) ;
+};
+</script>
+
+ </div>
+</div>
+</body>
+</html>
